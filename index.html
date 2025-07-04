@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3D Solar System</title>
+  <link rel="icon" type="image/png" href="textures/solar.png">
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <nav id="navbar">
+    <div class="navbar-inner">
+      <div class="logo">
+        <!-- SVG Logo -->
+        <svg width="34" height="34" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="sunGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#FFEB3B" />
+              <stop offset="100%" stop-color="#FFC107" />
+            </radialGradient>
+            <linearGradient id="orbitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#8E44AD" />
+              <stop offset="100%" stop-color="#3498DB" />
+            </linearGradient>
+          </defs>
+          <circle cx="60" cy="60" r="12" fill="url(#sunGrad)" />
+          <circle cx="60" cy="60" r="40" fill="none" stroke="url(#orbitGrad)" stroke-width="2" opacity="0.6" />
+          <circle cx="100" cy="60" r="6" fill="#E74C3C" />
+          <circle cx="60" cy="20" r="5" fill="#1ABC9C" />
+          <circle cx="20" cy="60" r="4" fill="#F1C40F" />
+        </svg>
+        <span>Solar System</span>
+      </div>
+
+      <button class="hamburger" id="hamburger">&#9776;</button>
+
+      <div class="nav-right" id="navLinks">
+        <button id="pauseBtn">Pause</button>
+        <button id="themeToggle">Toggle Theme</button>
+        <button id="togglePanelBtn">Controls</button>
+      </div>
+    </div>
+  </nav>
+
+
+  <div id="controlPanel" class="panel hidden">
+    <button class="close-btn mobile-only" id="closePanelBtn">&times;</button>
+    <h2>Speed Controls</h2>
+
+  </div>
+
+
+  <main>
+    <canvas id="solarCanvas"></canvas>
+    <div id="tooltip" style="display: none;">Planet</div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.min.js"></script>
+  <script src="script.js"></script>
+
+  <script>
+    const hamburger = document.getElementById("hamburger");
+    const navLinks = document.getElementById("navLinks");
+    const togglePanelBtn = document.getElementById("togglePanelBtn");
+    const controlPanel = document.getElementById("controlPanel");
+    const closePanelBtn = document.getElementById("closePanelBtn");
+
+
+    hamburger.addEventListener("click", () => {
+      navLinks.classList.toggle("show");
+    });
+
+
+    togglePanelBtn.addEventListener("click", () => {
+      controlPanel.classList.add("show");
+      controlPanel.classList.remove("hidden");
+    });
+
+
+    if (closePanelBtn) {
+      closePanelBtn.addEventListener("click", () => {
+        controlPanel.classList.remove("show");
+        controlPanel.classList.add("hidden");
+      });
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,391 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #000;
+  color: white;
+}
+
+/*Solar Canvas */
+#solarCanvas {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  display: block;
+}
+
+/*Navbar Styling*/
+#navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 14px 0;
+  background-color: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+  color: white;
+  z-index: 100;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  font-size: 16px;
+}
+
+.navbar-inner {
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+#themeToggle,
+#togglePanelBtn {
+  padding: 6px 14px;
+  font-size: 14px;
+  border: 1px solid white;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease-in-out;
+}
+
+#themeToggle:hover,
+#togglePanelBtn:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/*Control Panel */
+.panel {
+  position: fixed;
+  top: 64px;
+  right: 0;
+  width: 230px;
+  height: calc(100% - 52px);
+  background-color: rgba(255, 255, 255, 0.07);
+  padding: 20px;
+  color: white;
+  z-index: 100;
+  backdrop-filter: blur(5px);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform: translateX(230px);
+  opacity: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.panel.show {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: all;
+}
+
+.panel.hidden {
+  transform: translateX(269px);
+  opacity: 0;
+  pointer-events: none;
+}
+
+#controlPanel h2 {
+  margin: 0 0 16px 0;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+
+}
+
+.panel label {
+  font-size: 13px;
+  margin-top: 9px;
+}
+
+.panel input[type="range"] {
+  width: 100%;
+}
+
+/*Pause Button*/
+#pauseBtn {
+  padding: 6px 14px;
+  font-size: 14px;
+  background: transparent;
+  color: white;
+  border: 1px solid white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+#pauseBtn:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+body.light #pauseBtn {
+  color: #000;
+  border-color: #000;
+}
+
+body.light #pauseBtn:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Tooltip */
+#tooltip {
+  position: absolute;
+  color: white;
+  background: rgba(0, 0, 0, 0.75);
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  max-width: 240px;
+  line-height: 1.4;
+  pointer-events: none;
+  z-index: 999;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+  border: 1px solid white;
+}
+
+#tooltip a {
+  color: #4da6ff;
+  text-decoration: underline;
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 13px;
+}
+
+
+
+body.light #navbar,
+body.light .panel,
+body.light #tooltip {
+  color: #000;
+  background: white;
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+body.light #themeToggle,
+body.light #togglePanelBtn {
+  color: #000;
+  border-color: #000;
+}
+
+body.light #themeToggle:hover,
+body.light #togglePanelBtn:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+
+
+body.light #tooltip a {
+  color: #0077cc;
+}
+
+
+
+
+/*Responsive Hamburger Menu */
+.hamburger {
+  display: none;
+  font-size: 24px;
+  background: none;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+body.light #hamburger {
+  color: black;
+}
+
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .nav-right {
+    position: absolute;
+    top: 63px;
+    right: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.95);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 0 16px;
+    overflow: hidden;
+    z-index: 999;
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: max-height 0.4s ease, opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    height: 100vh;
+  }
+
+
+}
+
+.nav-right.show {
+  max-height: 100vh;
+  border: 0.5px solid rgb(54, 53, 53);
+  opacity: 1;
+  transform: translateY(0);
+
+  padding: 12px 16px;
+  pointer-events: auto;
+}
+
+body.light .nav-right {
+  background-color: white;
+}
+
+.mobile-only {
+  display: block;
+}
+
+
+.nav-right.show a {
+  animation: fadeInDown 0.3s ease forwards;
+}
+
+
+
+@media (min-width: 769px) {
+  .mobile-only {
+    display: none;
+  }
+}
+
+
+.close-btn {
+  align-self: flex-end;
+  background: none;
+  color: white;
+  font-size: 24px;
+  border: none;
+  cursor: pointer;
+  margin: 10px 10px 0 0;
+  transition: color 0.3s;
+}
+
+.close-btn:hover {
+  color: #ff4e4e;
+  top: 10px;
+  position: absolute;
+}
+
+body.light .close-btn {
+  color: #000;
+}
+
+body.light .close-btn:hover {
+  color: #ff3333;
+}
+
+
+@media (max-width: 768px) {
+  .panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.95);
+    z-index: 999;
+    transform: translateX(100%);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px 20px 40px;
+    box-sizing: border-box;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease;
+  }
+
+  .panel.show {
+    transform: translateX(0);
+  }
+
+  .panel label {
+    font-size: 14px;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+
+  body.light .panel label,
+  body.light #controlPanel h2 {
+    color: #000;
+
+  }
+
+  body.light #controlPanel h2 {
+    border-bottom: 1px solid #000;
+  }
+
+  .panel input[type="range"] {
+    width: 100%;
+  }
+
+  #controlPanel h2 {
+    font-size: 18px;
+    color: #fff;
+    margin-bottom: 16px;
+    width: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+
+  #tooltip {
+    font-size: 12px;
+    padding: 8px 10px;
+    max-width: 200px;
+    background-color: #000;
+    color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+
+  body.light #tooltip {
+    background-color: rgba(255, 255, 255, 0.95);
+    color: #000;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 12px;
+  }
+}
